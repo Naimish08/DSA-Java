@@ -16,13 +16,18 @@ class TreeOperation{
         root.height = 1+Math.max(getheight(root.left),getheight(root.right));
         int balance = balancefactor(root);
         if(balance>1 && root.left.val>data){
-            leftrotate(root);
+            return leftrotate(root);
         }
         else if(balance<-1 && root.right.val<data){
-            rightrotate(root);
+            return rightrotate(root);
         }
-        else if(balance>1 && root.left.val>data) {
-
+        else if(balance>1 && root.left.val<data) {
+            root.left = leftrotate(root.left);
+            return rightrotate(root);
+        }
+        else if(balance<-1 && root.right.val>data){
+            root.right = rightrotate(root.right);
+            return leftrotate(root);
         }
         return root;
     }
@@ -37,19 +42,35 @@ class TreeOperation{
             root.right = Insert(root.right,data);
         }
         else{
-            if(root==null){
+            if(root.left==null && root.right==null){
                 return null;
             }
             else if(root.left == null){
-                return root.right;
+                root = root.right;
             }
             else if(root.right == null){
-                return root.left;
+                root = root.left;
             }
             else{
                 root.val = successordel(root);
                 root.right = Deletion(root.right,root.val);
             }
+        }
+        root.height = 1+Math.max(getheight(root.left),getheight(root.right));
+        int balance = balancefactor(root);
+        if(balance>1 && root.left.val>data){
+            return leftrotate(root);
+        }
+        else if(balance<-1 && root.right.val<data){
+            return rightrotate(root);
+        }
+        else if(balance>1 && root.left.val<data) {
+            root.left = leftrotate(root.left);
+            return rightrotate(root);
+        }
+        else if(balance<-1 && root.right.val>data){
+            root.right = rightrotate(root.right);
+            return leftrotate(root);
         }
         return root;
     }
@@ -71,6 +92,7 @@ class TreeOperation{
 
         x.right = root;
         root.left = t1;
+        return x;
     }
     Node rightrotate(Node root){
         Node x = root.right;
@@ -78,6 +100,7 @@ class TreeOperation{
 
         x.left = root;
         root.right = t1;
+        return x;
     }
     Node search(Node root,int data){
         if(root==null){
