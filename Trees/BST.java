@@ -27,12 +27,14 @@ class Node{
     Node left;
     int val;
     Node right;
+    int height;
     public Node(){
     }
     public Node(int val) {
         this.val = val;
         left = null;
         right = null;
+        height = 0;
     }
 }
 public class BST {

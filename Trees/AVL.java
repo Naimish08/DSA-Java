@@ -13,6 +13,17 @@ class TreeOperation{
         else{
             root.right = Insert(root.right,data);
         }
+        root.height = 1+Math.max(getheight(root.left),getheight(root.right));
+        int balance = balancefactor(root);
+        if(balance>1 && root.left.val>data){
+            leftrotate(root);
+        }
+        else if(balance<-1 && root.right.val<data){
+            rightrotate(root);
+        }
+        else if(balance>1 && root.left.val>data) {
+
+        }
         return root;
     }
     Node Deletion(Node root,int data){
@@ -41,6 +52,32 @@ class TreeOperation{
             }
         }
         return root;
+    }
+    int getheight(Node root){
+        if(root==null){
+            return -1;
+        }
+        return root.height;
+    }
+    int balancefactor(Node root){
+        if(root == null){
+            return 0;
+        }
+        return getheight(root.left)-getheight(root.right);
+    }
+    Node leftrotate(Node root){
+        Node x = root.left;
+        Node t1 = x.right;
+
+        x.right = root;
+        root.left = t1;
+    }
+    Node rightrotate(Node root){
+        Node x = root.right;
+        Node t1 = x.left;
+
+        x.left = root;
+        root.right = t1;
     }
     Node search(Node root,int data){
         if(root==null){
@@ -90,6 +127,7 @@ public class AVL{
         root = tree.Insert(root,7);
         root = tree.Insert(root,14);
         root = tree.Insert(root,18);
+        root = tree.Insert(root,3);
         tree.Inorder(root);
         int a= tree.max(root);
     }
