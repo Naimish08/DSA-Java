@@ -27,6 +27,7 @@ public class LL {
 
     public void insertFirst(int value){
         Node newNode = new Node(value);
+        size++;
         if(head == null){
             head = newNode;
             tail = newNode;
@@ -43,11 +44,43 @@ public class LL {
         head = head.next;
     }
 
-    public void insertAtIndex(int index){
+    public void insertAtIndex(int index,int value){
+        if(index == size){
+            insertLast(value);
+            return;
+        }
+        Node newNode = new Node(value);
+        size++;
+        if(head == null){
+            head = newNode;
+            tail = newNode;
+            return;
+        }
+        Node temp = head;
+        for(int i = 0; i < index-1; i++){
+            temp = temp.next;
+        }
+        newNode.next = temp.next;
+        temp.next = newNode;
 
     }
 
+    public void deleteAtIndex(int index){
+        if(index == 0){
+            deleteFirst();
+        }
+        if(index == size){
+            deleteLast();
+        }
+        Node temp = head;
+        for(int i = 0; i < index-1; i++){
+            temp = temp.next;
+        }
+        temp.next = temp.next.next;
+    }
+
     public void insertLast(int value){
+        size++;
         Node newNode = new Node(value);
         if(head == null){
             head = newNode;
