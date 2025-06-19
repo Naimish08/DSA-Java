@@ -25,4 +25,63 @@ public class LL {
         }
     }
 
+    public void insertFirst(int value){
+        Node newNode = new Node(value);
+        if(head == null){
+            head = newNode;
+            tail = newNode;
+            return;
+        }
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public void deleteFirst(){
+        if(head == null){
+            return;
+        }
+        head = head.next;
+    }
+
+    public void insertAtIndex(int index){
+
+    }
+
+    public void insertLast(int value){
+        Node newNode = new Node(value);
+        if(head == null){
+            head = newNode;
+            tail = newNode;
+            return;
+        }
+        tail.next = newNode;
+        tail = newNode;
+    }
+
+    public void deleteLast(){
+        if(head == null){
+            return;
+        }
+        Node Temp = head;
+        while(Temp.next != tail){
+            Temp = Temp.next;
+        }
+        tail = Temp;
+        tail.next = null;
+    }
+
+    public void display(){
+        if(head == null){
+            System.out.println("No Items in the List");
+            return;
+        }
+        Node temp = head;
+        while(temp != null){
+            System.out.print(temp.value + "->");
+            temp = temp.next;
+        }
+        System.out.print("NULL");
+        System.out.println();
+    }
+
 }
